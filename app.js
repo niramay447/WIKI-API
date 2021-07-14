@@ -106,7 +106,18 @@ app.route("/articles/:articleTitle")
         }
     )
 })
-
+.delete(function(req,res){
+Article.deleteOne(
+    {title:req.params.articleTitle},
+    function(err){
+        if(!err){
+            res.send("Successfully deleted the article");
+        }else {
+            res.send(err);
+        }
+    }
+)
+});
 mongoose.connect("mongodb://localhost:27017/wikiDB", {useNewUrlParser:true});
 app.listen(3000, function(){
     console.log("Server started on per 3000");
