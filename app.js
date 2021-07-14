@@ -91,7 +91,21 @@ app.route("/articles/:articleTitle")
             }
         }
         )
-});
+})
+
+.patch(function(req,res){
+    Article.update(
+        {title:req.params.articleTitle},
+        {$set:req.body},
+        function(err){
+            if(!err){
+            res.send("Successfully Updated articles");
+            }else{
+                res.send(err);
+            }
+        }
+    )
+})
 
 mongoose.connect("mongodb://localhost:27017/wikiDB", {useNewUrlParser:true});
 app.listen(3000, function(){
